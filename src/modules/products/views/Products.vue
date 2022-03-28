@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  
   <b-card-group deck class="mt-5">
     <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
       <b-card-text>
@@ -37,14 +37,38 @@
       </template>
     </b-card>
   </b-card-group>
-</b-container>
 </template>
 
 <script>
+import { mapState, mapActions,  mapGetters, mapMutations } from 'vuex'
+import { overWriteAxiosHeaders } from '@/helpers/helpers'
+
 export default {
   name: 'Products',
-  props: {
-    msg: String
+  props:{
+    tokenApp:{
+      type: String,
+      required: true
+    }
+  },
+  async mounted(){
+    await overWriteAxiosHeaders( {token:this.tokenApp} ) //sobreescribo axios    
+    await this.loginApp()  
+  },
+  methods:{
+    ...mapActions('auth',['loginWeb']),   
+    ...mapMutations('auth',['logout','setUser','setDataQueryParams']),          
+    async loginApp(){
+      const { ok, user } = await this.loginWeb( this.tokenApp )
+      this.setDataQueryParams({token:this.tokenApp})
+      if(ok){
+        this.setUser( user )
+      }
+      if(!ok){
+        this.logout() 
+        this.setDataQueryParams(null)
+      }
+    },
   }
 }
 </script>

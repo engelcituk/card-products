@@ -1,9 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
 import store from '../store/index'
-import { menuItemsCompleto, menuItemsSinEstancias, menuItemsDefault} from '../data/navigation'
-import { find } from 'lodash'
-import * as moment from 'moment'
-import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios' 
@@ -105,9 +101,7 @@ const checkItemsCartSihotCode = (cart) => {
 
 }
 
-const findItemInSelectedOrder = (order, id) => {
-    return order.find(order => order.id === id)
-}
+
 const formatBeoProductToSave = (detalles, id, infobeo) => {
     detalles.forEach((detalle) => {
         delete detalle.infobeo
@@ -140,11 +134,7 @@ const transfersIsValidNull = (detailOrder) => {
     }
 }
 
-const yearsMinMax = () => {
-    const yearMin = moment().subtract(5, 'years').year()
-    const yearMax = moment().add(5, 'years').year()
-    return { yearMin, yearMax }
-}
+
 
 const stringAleatorio = () => {    
     return uuidv4() 
@@ -160,39 +150,9 @@ const validUserLogin = () => {
     }
 }
 
-const generateMenuList = ( seccionCanalUser ) => {         
-    const hasVendorCode =  store.state.auth.user?.canalventa?.dingusvendorcode || false        
-    if( seccionCanalUser != 0 ){        
-        if( seccionCanalUser == 6 || seccionCanalUser == 29  ){ 
-            return hasVendorCode ? menuItemsCompleto : menuItemsSinEstancias            
-        } else {
-            return menuItemsDefault          
-        }  
-    } else {
-        return menuItemsDefault
-    }    
-}
 
-const validateDataInCart = (cart) => {
-    const itemFind = find(cart, { requiredFieldsFilled: false })
-    if (itemFind) {
-        Vue.$toast({
-            component: ToastificationContent,
-            props: {
-                title: 'Notification',
-                icon: 'BellIcon',
-                text: `💡 Existe por lo menos algún elemento sin completar sus datos, asegurese de completar esa información.`,
-                variant: 'danger',
-            },
-        }, {
-            position: 'bottom-right',
-            timeout: 4000,
-        })
-        return true
-    } else {
-        return false
-    }
-}
+
+
 
 const camposRequeridosPorLLenar = (product) => {
     let camposFaltantes = []    
@@ -259,12 +219,6 @@ const toJson = (stringToJson) => {
     return JSON.parse(JSON.stringify(stringToJson))
 }
 
-const showAlertMessage = (title = 'Ok', icon = 'BellIcon', text, variant = 'success', timeout = '3000', position = 'bottom-right') => {
-    Vue.$toast({
-        component: ToastificationContent,
-        props: { title, icon, text, variant },
-    }, { timeout, position })
-}
 
 
 const addFormatPay = (payInfo, amount) => {
@@ -530,25 +484,20 @@ const overWriteAxiosHeaders = (queryParams) =>{
 
 export {
     validUserLogin,
-    generateMenuList,
     handlerErrors,
     currentDate,
     formatDate,
     formatDateOnly,
     hoursOnly,
-    validateDataInCart,
     addFormatPay,
-    findItemInSelectedOrder,
     formatBeoProductToSave,
     transfersIsValid,
     transfersIsValidNull,
     checkItemsCartSihotCode,
-    yearsMinMax,
     stringAleatorio,
     camposRequeridosPorLLenar,
     toDecimal,
     toJson,
-    showAlertMessage,
     consoleMsgFinally,    
     makeArrayCategories,
     formatListProducts,

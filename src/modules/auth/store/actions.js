@@ -23,12 +23,7 @@ export async function loginWeb(context, token){
             user.canalventa = canalventa         
             user.puntosventa = puntosventa  
             user.sectionCanal = seccioncanalventa       
-            delete user.password //del user elimino el password, para guardarlo en el state    
-            context.commit('shop/setCanalVenta', user.canalventa.id, { root: true})                       
-            context.commit('shop/setidUserClient', user.idUser, { root: true})         
-            if( user.puntosventa.length > 0 ){            
-                context.commit('shop/setPuntoDeVenta', puntosventa[0].id, { root: true})  
-            }    
+            delete user.password //del user elimino el password, para guardarlo en el state                   
             return {ok: true, user, message: 'Login exitoso'}                                                                                        
     } catch (error) {  
         if (error.response) {
