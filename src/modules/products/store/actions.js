@@ -1,28 +1,22 @@
 import Vue from 'vue'
-import store from '../../../store/index' //para acceder a state
-// import {  formatItems, formatItemProduct, currentDate } from '../../../../helpers/helpers'
-// import {  fetchCategories, fetchCurrencies, fetchPaymentMethods } from '../../../start/store/actions'
+import store from '../../../store' //para acceder a state
+import {  formatItems, formatItemProduct, currentDate, consoleMsgFinally, makeArrayCategories} from '../../../helpers/helpers'
 
 export async function getInitialContent(context){
-    context.commit('setLoadingProducts', true) //set State loader  
     const content = await Promise.all([        
-        fetchCategories(), fetchCurrencies(), fetchProducts(),  fetchPaymentMethods()
+        fetchCategories(), fetchProducts()
     ])                            
-    const [ categories, currencies, products, paymentMethods ] = content       
-    const { creditCard } = paymentMethods  
-    context.commit('start/setCategories', categories, { root: true }) //muto state categories en start   
-    context.commit('start/setCurrencies', currencies, { root: true }) // set State
-    context.commit('setProducts', products )   // set State
-    context.commit('shop/setPaymentMethodClient', creditCard.id, { root: true } )   // set State
-    context.commit('setLoadingProducts', false)  // set State loader  
-    return { currencies, products,  paymentMethods }
+    const [ categories, products ] = content 
+    context.commit('setCategories', categories) //muto state categories  
+    context.commit('setProducts', products )   // set State products
+    return { categories,  products }
 }
 
 export async function getAnotherInitialContent( context ){             
      
     context.commit('start/setLoadingCategories', true, { root: true }) //loader para categorías      
     const content = await Promise.all([        
-        fetchCategories(), fetchCurrencies(), fetchPaymentMethods(),  //make 3 requests
+        fetchCategories(),  fetchPaymentMethods(),  //make 3 requests
     ])    
     const [ categories, currencies ] = content  
     context.commit('start/setCategories', categories, { root: true }) //muto state categories en start   
@@ -32,6 +26,27 @@ export async function getAnotherInitialContent( context ){
     return content
 }
 
+export async function fetchCategories() {
+    const idseccanal =  store.state.auth.user?.sectionCanal?.id
+    try {
+        
+        const response = await Vue.axios({
+            url: '/catalogs/category/',
+            params: {idseccanal
+             }
+        })
+        const payload = response && response.data
+     
+        const categories = makeArrayCategories( payload )
+
+        return categories
+
+    } catch (error) {
+        console.log(error)
+    } finally {
+        consoleMsgFinally('start/fetchCategories', 'La petición para obtener las categorías se ha terminado')
+    }
+}
 //para peticiones asyncronas para obtener lista de productos best seller
 export async function fetchProducts() {
     const idseccanal =  store.state.auth.user?.sectionCanal?.id           

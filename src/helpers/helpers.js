@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid'
-import store from '../store/index'
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios' 
@@ -87,19 +86,7 @@ const hoursOnly = (fecha) => {
     return stringHours
 }
 
-const checkItemsCartSihotCode = (cart) => {
-    let resultados = cart.filter(item => item.serviciosihot == null)
-    if (resultados.length > 0) {
-        store.commit('shop/setMakeRoomCharge', true, { root: true })
-        store.commit('shop/setManualRoomChargeCliente', true, { root: true })
-        return { ok: true, objetos: resultados }
-    } else {
-        store.commit('shop/setMakeRoomCharge', false, { root: true })
-        store.commit('shop/setManualRoomChargeCliente', false, { root: true })
-        return { ok: false, objetos: null }
-    }
 
-}
 
 
 const formatBeoProductToSave = (detalles, id, infobeo) => {
@@ -138,16 +125,6 @@ const transfersIsValidNull = (detailOrder) => {
 
 const stringAleatorio = () => {    
     return uuidv4() 
-}
-const validUserLogin = () => {
-    const isLoggedUser = store.state.auth.isLogged
-    const hasSalesChannel = store.state.shop.canalventa
-    const hasPointOfSales = store.state.shop.puntoventa
-    if (isLoggedUser && hasSalesChannel && hasPointOfSales) {
-        return true
-    } else {
-        return false
-    }
 }
 
 
@@ -483,7 +460,7 @@ const overWriteAxiosHeaders = (queryParams) =>{
 
 
 export {
-    validUserLogin,
+    
     handlerErrors,
     currentDate,
     formatDate,
@@ -492,8 +469,7 @@ export {
     addFormatPay,
     formatBeoProductToSave,
     transfersIsValid,
-    transfersIsValidNull,
-    checkItemsCartSihotCode,
+    transfersIsValidNull,    
     stringAleatorio,
     camposRequeridosPorLLenar,
     toDecimal,

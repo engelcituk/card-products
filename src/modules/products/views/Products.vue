@@ -1,47 +1,24 @@
 <template>
-  
-  <b-card-group deck class="mt-5">
-    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
-      <b-card-text>
-        This is a wider card with supporting text 
-      </b-card-text>
-      <template #footer>
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </template>
-    </b-card>
-
-    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
-      <b-card-text>
-        This card has supporting text below as a natural lead-in to additional content.
-      </b-card-text>
-      <template #footer>
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </template>
-    </b-card>
-
-    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
-      <b-card-text>
-        This is a wider card with supporting text below as a natural lead-in t
-      </b-card-text>
-      <template #footer>
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </template>
-    </b-card>
-
-    <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
-      <b-card-text>
-        This is a wider card with supporting text below as a natural lead-in
-      </b-card-text>
-      <template #footer>
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </template>
-    </b-card>
-  </b-card-group>
+  <div>
+    <div class="mt-5" v-if="!isLoadingProducts">
+      <b-row >
+        <b-col md="3" v-for="product in filteredProducts" :key="product.id" >
+          <Product :product="product" md="4"/>
+        </b-col>
+      </b-row>               
+      
+    </div>
+    <div class="text-center mt-5" v-if="isLoadingProducts">
+          <b-spinner label="Loading..." variant="success" /><br />
+          <strong>Cargando productos</strong>
+      </div>
+  </div>     
 </template>
 
 <script>
 import { mapState, mapActions,  mapGetters, mapMutations } from 'vuex'
 import { overWriteAxiosHeaders } from '@/helpers/helpers'
+import Product from '@/modules/products/components/Product'
 
 export default {
   name: 'Products',
@@ -51,12 +28,28 @@ export default {
       required: true
     }
   },
+  components: {
+    Product
+  },
   async mounted(){
     await overWriteAxiosHeaders( {token:this.tokenApp} ) //sobreescribo axios    
     await this.loginApp()  
+    this.isLoadingProducts = true
+    await this.getInitialContent()       
+    this.isLoadingProducts = false
+
+  },
+  data(){
+    return {
+      isLoadingProducts: false
+    }
+  },
+  computed:{
+    ...mapGetters('products',['filteredProducts']),  
   },
   methods:{
-    ...mapActions('auth',['loginWeb']),   
+    ...mapActions('auth',['loginWeb']),  
+    ...mapActions('products',['getInitialContent','getAnotherInitialContent']), 
     ...mapMutations('auth',['logout','setUser','setDataQueryParams']),          
     async loginApp(){
       const { ok, user } = await this.loginWeb( this.tokenApp )
