@@ -4,5 +4,6 @@ export default {
         hotels: null,
         defaults: null,
         services: null,
-    },         
+    },
+    isloadingProducts: false         
 }

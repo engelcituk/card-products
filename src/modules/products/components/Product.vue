@@ -24,7 +24,7 @@
                 <div v-html="product.description"></div>              
             </b-card-text>
         </b-card-body>
-            <div class="mt-4">
+            <div class="mt-1">
                 <b-button class="button-in-bottom" variant="primary" block tag="a"               
                 
               >            
@@ -72,13 +72,6 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.my-flex-card > div > div.card {
-    height: calc(100% - 50px);
-    margin-bottom: 15px;
-}
-.button-in-bottom{
-  position: absolute;
-  right:    0;
-  bottom:   0;
-}
+
+
 </style>

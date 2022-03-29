@@ -10,5 +10,7 @@ export function setCategories(state, categories) {
 }
 
 
-
+export function setLoadingProducts( state, bool) {
+    state.isloadingProducts = bool
+}
 

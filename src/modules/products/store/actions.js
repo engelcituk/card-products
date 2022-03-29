@@ -49,13 +49,13 @@ export async function fetchCategories() {
 }
 //para peticiones asyncronas para obtener lista de productos best seller
 export async function fetchProducts() {
-    const idseccanal =  store.state.auth.user?.sectionCanal?.id           
+    const idseccanal =  store.state.auth.user?.sectionCanal?.id          
     try {        
         const response = await Vue.axios({
             url: `/products/`,
             params: { bs: 1, idseccanal }
         })        
-        const payload = response && response.data
+        const payload = response && response.data        
         return formatItems( payload, 'products', 'BestSeller-01' ) 
     } catch (error) {
         console.log( error )
@@ -65,11 +65,11 @@ export async function fetchProducts() {
 }
 
 //peticiones para obtener lista de productos por categorias
-export async function fetchProductsByCategories({ commit }, category) {
+export async function fetchProductsByCategories(context, category) {
     const { value } = category 
     const idseccanal =  store.state.auth.user?.sectionCanal?.id       
     try {
-        commit('products/setLoadingProducts', true, { root: true })
+        
         const response = await Vue.axios({
             url: `/products/`,
             params: {
@@ -81,8 +81,7 @@ export async function fetchProductsByCategories({ commit }, category) {
         return formatItems( payload, 'products', value )        
     } catch (error) {
         console.log(error.response)
-    } finally {
-        commit('products/setLoadingProducts', false, { root: true })
+    } finally {        
         console.log('fetchProductsByCategories end')
     }
 }

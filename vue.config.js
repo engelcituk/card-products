@@ -7,8 +7,8 @@ module.exports = {
       })
     ]
   },
-  chainWebpack:
-    config => {
+  chainWebpack: config => {
       config.optimization.delete('splitChunks')
-    }
+  },
+  filenameHashing: false,  
 }
