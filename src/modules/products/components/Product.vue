@@ -8,7 +8,7 @@
         />
         <b-card-body>
             <b-card-text>
-             <h6 class="item-name" v-if="product.modelType == 'product'">
+             <h6 class="item-name">
                 <b-link
                     class="text-body"
                 
@@ -67,7 +67,7 @@ export default {
 
 .long-description {
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

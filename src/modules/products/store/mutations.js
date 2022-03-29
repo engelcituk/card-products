@@ -14,3 +14,7 @@ export function setLoadingProducts( state, bool) {
     state.isloadingProducts = bool
 }
 
+
+export function setSelectedCategory(state, category ){
+    state.selectedCategory = category
+} 

@@ -280,7 +280,8 @@ const formatListProducts = ( products, valueCategory ) => {
 }
 
 const formatListPackage = ( packages, valueCategory) => {
-    packages.forEach((product) => {
+    let items = []
+    packages.forEach((product, index) => {
         product.modelType = 'package'    
         product.valueFromCategory = valueCategory
         product.detailSelected = {
@@ -295,13 +296,17 @@ const formatListPackage = ( packages, valueCategory) => {
         delete product.weblink
         delete product.category
         delete product.productinfo
+        if(index < 4 ){
+            items.push(product)             
+        }
     })
 
-    return packages
+    return items
 }
 
 const formatListEvents = ( events, valueCategory ) => {
-    events.forEach((product) => {        
+    let items = []
+    events.forEach((product, index) => {        
         const timeInitFormat = product.startTime.slice(0, -3)
         const timeEndFormat = product.endTime.slice(0, -3)
         const ampmInit = (timeInitFormat.slice(0, -3) >= 12) ? "PM" : "AM"
@@ -332,9 +337,12 @@ const formatListEvents = ( events, valueCategory ) => {
         delete product.location
         delete product.category
         delete product.productinfo
+        if(product.detailSelected && index < 4 ){
+            items.push(product) 
+        } 
     })
 
-    return events
+    return items
 }
 
 const setParamsGetProducts = ( parametros, idseccanal ) => {
@@ -459,8 +467,7 @@ const overWriteAxiosHeaders = (queryParams) =>{
 }
 
 
-export {
-    
+export {    
     handlerErrors,
     currentDate,
     formatDate,

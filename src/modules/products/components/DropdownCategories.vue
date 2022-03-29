@@ -48,9 +48,8 @@ export default {
     ...mapGetters('products',['filteredProducts']),     
   },
     methods:{
-        ...mapActions('products',['fetchProducts','fetchProductsByCategories','fetchPackages','fetchEvents']),
-        ...mapMutations('start',['setSelectedCategory']),
-        ...mapMutations('products',['setProducts','setLoadingProducts']),
+        ...mapActions('products',['fetchProducts','fetchProductsByCategories','fetchPackages','fetchEvents']),        
+        ...mapMutations('products',['setProducts','setLoadingProducts','setSelectedCategory']),
         async getProducts( valueCategory ){ 
             let products = []      
             const { defaults, hotels, services } = this.categories
@@ -71,7 +70,7 @@ export default {
             if( action == 'get-events' ){
                 products = await this.fetchEvents()                       
             }
-            // this.setSelectedCategory( categoria )
+            this.setSelectedCategory( categoria )
             this.setProducts( products )
             this.setLoadingProducts(false)
 

@@ -28,6 +28,7 @@
 import { mapState, mapActions,  mapGetters, mapMutations } from 'vuex'
 import Product from '@/modules/products/components/Product'
 import DropdownCategories from '@/modules/products/components/DropdownCategories'
+import { toJson } from '@/helpers/helpers'
 
 import Vue from 'vue'
 import axios from 'axios'
@@ -54,19 +55,20 @@ export default {
     this.setLoadingProducts(true)
     await this.getInitialContent()       
     this.setLoadingProducts(false)
+    this.setCategoryInPage()
 
   },
   
   computed:{
     ...mapGetters('products',['filteredProducts']),  
-    ...mapState('products',['isloadingProducts']),  
+    ...mapState('products',['isloadingProducts','categories']),  
 
   },
   methods:{
     ...mapActions('auth',['loginWeb']),  
     ...mapActions('products',['getInitialContent','getAnotherInitialContent']), 
     ...mapMutations('auth',['logout','setUser','setDataQueryParams']),          
-    ...mapMutations('products',['setLoadingProducts']),          
+    ...mapMutations('products',['setLoadingProducts','setSelectedCategory']),          
 
     async loginApp(){
       const { ok, user } = await this.loginWeb( this.tokenApp )
@@ -79,6 +81,18 @@ export default {
         this.setDataQueryParams(null)
       }
     },
+    setCategoryInPage(){
+      const { defaults, hotels, services } = this.categories
+      const myCategories =  [...defaults, ...hotels, ...services ] 
+      if( this.filteredProducts.length > 0 ){
+        const valueCategory = this.filteredProducts[0].valueFromCategory
+        const categoria = toJson(myCategories.find( cat => cat.value === valueCategory ) ) //category para setear el state selectedCategory in start module  
+        this.setSelectedCategory( categoria )
+      }
+      if( this.filteredProducts.length == 0 ){
+        this.setSelectedCategory( {section:'Categories', action: 'get-products-best-seller',text: 'Best Seller', value: 'BestSeller-01'} )                
+      }
+    }
   }
 }
 </script>

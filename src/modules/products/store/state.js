@@ -5,5 +5,6 @@ export default {
         defaults: null,
         services: null,
     },
-    isloadingProducts: false         
+    isloadingProducts: false,
+    selectedCategory: null,   
 }
