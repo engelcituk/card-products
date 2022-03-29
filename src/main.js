@@ -12,5 +12,6 @@ App.store = store
 Vue.customElement('card-products', App)
 /*
 npm run build -- --target wc --name product-cards src\main.js
+https://www.telerik.com/blogs/passing-variables-to-css-on-a-vue-component
 */
 // npm run lint -- --fix

@@ -86,9 +86,6 @@ const hoursOnly = (fecha) => {
     return stringHours
 }
 
-
-
-
 const formatBeoProductToSave = (detalles, id, infobeo) => {
     detalles.forEach((detalle) => {
         delete detalle.infobeo
@@ -121,15 +118,9 @@ const transfersIsValidNull = (detailOrder) => {
     }
 }
 
-
-
 const stringAleatorio = () => {    
     return uuidv4() 
 }
-
-
-
-
 
 const camposRequeridosPorLLenar = (product) => {
     let camposFaltantes = []    
@@ -261,6 +252,8 @@ const formatListProducts = ( products, valueCategory ) => {
     products.forEach((product, index ) => {        
         product.modelType = 'product'
         product.valueFromCategory = valueCategory
+        product.isSelected = false
+        product.uuid = stringAleatorio()
         product.categoryName = product.category.name || ''
         product.detailSelected = product.detail[0] ? product.detail[0] : null
         delete product.gallery
@@ -284,6 +277,8 @@ const formatListPackage = ( packages, valueCategory) => {
     packages.forEach((product, index) => {
         product.modelType = 'package'    
         product.valueFromCategory = valueCategory
+        product.isSelected = false
+        product.uuid = stringAleatorio()
         product.detailSelected = {
             descmax: 0,
             detaildisplay: product.name,
@@ -312,8 +307,10 @@ const formatListEvents = ( events, valueCategory ) => {
         const ampmInit = (timeInitFormat.slice(0, -3) >= 12) ? "PM" : "AM"
         const ampmEnd = (timeEndFormat.slice(0, -3) >= 12) ? "PM" : "AM"
         product.modelType = 'event'
-        product.categoryName = 'Events'                       
+        product.categoryName = 'Events'  
         product.valueFromCategory = valueCategory
+        product.isSelected = false
+        product.uuid = stringAleatorio()                               
         const detalleIngles = product.eventdetail[1]
         product.detailSelected = {
             descmax: detalleIngles ? parseInt(detalleIngles.descmax) : 0,

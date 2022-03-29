@@ -1,8 +1,7 @@
 <template>
     <div>
         <b-dropdown
-            id="dropdown-grouped"
-            
+            id="dropdown-grouped"            
             variant="primary"
             right
             :text="selectedCategory ? selectedCategory.section :'Tipos de categorías'"
@@ -29,11 +28,10 @@
                 <b-dropdown-item v-for="cat in categories.services" :key="cat.value" @click="getProducts(cat.value)" >{{cat.text}}</b-dropdown-item>        
             </b-dropdown-group>
         </b-dropdown>
-        <b-badge variant="primary" class="ml-1" v-if="!isloadingProducts">
-            
+        <b-badge variant="primary" class="ml-1 mr-2" v-if="selectedCategory">            
             <span> {{ selectedCategory ? selectedCategory.text :'' }}</span>
         </b-badge>
-        
+        <b-icon-cart-check-fill style="color:#333366;"></b-icon-cart-check-fill>
     </div>
 </template>
 
@@ -78,3 +76,11 @@ export default {
     }
 }
 </script>
+<style scoped>
+
+.btn-primary {
+    color: #fff;
+    background-color: #333366!important;
+    border-color: #333366!important;
+}
+</style>

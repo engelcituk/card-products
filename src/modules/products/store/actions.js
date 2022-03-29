@@ -121,7 +121,7 @@ export async function fetchEvents({ commit }) {
         const fecha = new Date(todayDate)
         //se filtra los eventos que sean iguales o mayores a la fecha actual
         const result = payload.filter(item => new Date(item.endDate) >= fecha)
-        return formatItems( result, 'packages', 'e634becc-7d3e-11ec-90d6-0242ac120003')    
+        return formatItems( result, 'events', 'e634becc-7d3e-11ec-90d6-0242ac120003')    
     } catch (error) {
         console.log(error)
     } finally {

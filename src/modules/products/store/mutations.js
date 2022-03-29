@@ -18,3 +18,15 @@ export function setLoadingProducts( state, bool) {
 export function setSelectedCategory(state, category ){
     state.selectedCategory = category
 } 
+
+export function setIsSelected(state, data){
+    const { uuid, boolean } = data 
+    const products = [...state.products ]    
+    console.log( { uuid, boolean } )
+    const idx = products.findIndex( item => item.uuid === uuid )
+    console.log( products )
+
+    // return 
+    // const item = state.products.filter( item => item.uuid === uuid )
+    // item.isSelected = boolean
+} 
