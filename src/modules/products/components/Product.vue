@@ -25,7 +25,7 @@
             </b-card-text>
         </b-card-body>
             <div class="mt-1 btn-options">
-              <button class="custom-btn btn-13" @click="addToItemsSelected"><b-icon-star-fill :style="isSelectedItem"> </b-icon-star-fill></button>
+              <button class="custom-btn btn-13" @click="selectItem"><b-icon-star-fill :style="isSelectedItem"> </b-icon-star-fill></button>
               <button class="custom-btn btn-13" @click="selectProduct" > <b-icon-link45deg> </b-icon-link45deg></button>
             </div>
         </b-card>
@@ -55,9 +55,9 @@ export default {
     }
   },
   methods:{
-    ...mapMutations('products',['setIsSelected']),
+    ...mapMutations('products',['setIsSelected','addToItemsSelected']),
     selectProduct(){
-      const item = {... toJson(this.product) }
+      const item = {... toJson( this.product ) }
       const payload = {
         product: item.id,
         detail: item.detailSelected.id,
@@ -66,9 +66,17 @@ export default {
       const url = `?payload=${JSON.stringify(payload)}`
       console.log( url )
     },
-    addToItemsSelected(){      
+    selectItem(){      
       const item = {... toJson( this.product ) }
-      this.product.isSelected= !item.isSelected      
+      this.product.isSelected = !item.isSelected   
+
+      const payload = {
+        product: item.id,
+        detail: item.detailSelected.id,
+        type: `${item.modelType}s`,
+        isSelected: this.product.isSelected
+      }                      
+      this.addToItemsSelected(payload)     
     }
   }
 }

@@ -6,5 +6,6 @@ export default {
         services: null,
     },
     isloadingProducts: false,
-    selectedCategory: null,   
+    selectedCategory: null, 
+    itemsSelected:[],
 }

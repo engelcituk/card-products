@@ -19,14 +19,16 @@ export function setSelectedCategory(state, category ){
     state.selectedCategory = category
 } 
 
-export function setIsSelected(state, data){
-    const { uuid, boolean } = data 
-    const products = [...state.products ]    
-    console.log( { uuid, boolean } )
-    const idx = products.findIndex( item => item.uuid === uuid )
-    console.log( products )
+export function addToItemsSelected(state, payload){
+    const { isSelected, product, detail, type } = payload
+    if(isSelected){        
+        state.itemsSelected = [...state.itemsSelected, payload]
+    }
+    if(!isSelected){
+        state.itemsSelected = state.itemsSelected.filter( item => item.product === product && item.detail === detail && item.type === type )
+    }    
+} 
 
-    // return 
-    // const item = state.products.filter( item => item.uuid === uuid )
-    // item.isSelected = boolean
+export function removeToItemsSelected(state, product){
+    
 } 
