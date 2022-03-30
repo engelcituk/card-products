@@ -2,38 +2,39 @@
     <!-- <b-col md="4"> -->
         <b-card :title="product.name"  class="mt-2 h-100" img-top no-body >
         <b-img
-            fluid        
-            :alt="`${product.name}-${product.id}`"
-            :src="imgUrl + product.coverImage"                
+          fluid        
+          :alt="`${product.name}-${product.id}`"
+          :src="imgUrl + product.coverImage"                
         />
         <b-card-body>
-            <b-card-text>
-             <h6 class="item-name">
-                <b-link
-                    class="text-body"
-                
-                > {{ product.name }}
-                </b-link>
-                <!-- <b-card-text class="mt-1 text-muted"> Categoría: {{product.categoryName}}
-                </b-card-text> -->
-            </h6>
-            </b-card-text>
-            <b-card-text              
-                class="text-justify short-description"
-            >
-                <div v-html="product.description"></div>              
-            </b-card-text>
+          <b-card-text>
+            <h6 class="item-name">
+              <b-link
+                  class="text-body"
+              
+              > {{ product.name }}
+              </b-link>
+          </h6>
+          </b-card-text>
+          <b-card-text              
+              class="text-justify short-description"
+          >
+              <div v-html="product.description"></div>              
+          </b-card-text>
         </b-card-body>
-            <div class="mt-1 btn-options">
-              <button class="custom-btn btn-13" @click="selectItem"><b-icon-star-fill :style="isSelectedItem"> </b-icon-star-fill></button>
-              <button class="custom-btn btn-13" @click="selectProduct" > <b-icon-link45deg> </b-icon-link45deg></button>
-            </div>
+          <div class="mt-1 btn-options">
+            <button class="custom-btn btn-13" @click="showModal"><b-icon-info> </b-icon-info></button>
+            <button class="custom-btn btn-13" @click="selectItem"><b-icon-star-fill :style="isSelectedItem"> </b-icon-star-fill></button>
+            <button class="custom-btn btn-13" @click="selectProduct" > <b-icon-link45deg> </b-icon-link45deg></button>
+          </div>
+          <ProductDetail :product="product"/>
         </b-card>
     <!-- </b-col> -->
 </template>
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
+import ProductDetail from '@/modules/products/components/ProductDetail'
 import { toJson, generarJWT } from '@/helpers/helpers'
 export default {
   name: 'Product',  
@@ -42,7 +43,10 @@ export default {
       type: Object,
       required: true
     }
-  },  
+  }, 
+  components:{
+    ProductDetail
+  } ,
   data(){
     return {
       imgUrl: process.env.VUE_APP_IMG_SRC_API,
@@ -89,7 +93,10 @@ export default {
       return {
         token: this.queryParams.token
       }            
-    }
+    },
+    showModal() {
+      this.$root.$emit('bv::show::modal', this.product.uuid, '#btnShow')
+    },
   }
 }
 </script>
@@ -122,7 +129,7 @@ export default {
   
   color: #fff;
   border-radius: 5px;
-  padding: 10px 25px;
+  padding: 5px 15px;
   font-family: 'Lato', sans-serif;
   font-weight: 500;
   background: transparent;
