@@ -2,7 +2,7 @@
   <div>
     <div class="mt-5" v-if="!isloadingProducts">
       <b-row>
-        <b-col md="4">
+        <b-col md="6">
           <DropdownCategories />
         </b-col>
       </b-row>

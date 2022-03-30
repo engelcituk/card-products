@@ -21,14 +21,12 @@ export function setSelectedCategory(state, category ){
 
 export function addToItemsSelected(state, payload){
     const { isSelected, product, detail, type } = payload
-    if(isSelected){        
+    if(isSelected){   
         state.itemsSelected = [...state.itemsSelected, payload]
     }
     if(!isSelected){
-        state.itemsSelected = state.itemsSelected.filter( item => item.product === product && item.detail === detail && item.type === type )
+        state.itemsSelected = state.itemsSelected.filter( item => item.product !== product && item.detail !== detail && item.type !== type )       
     }    
 } 
 
-export function removeToItemsSelected(state, product){
-    
-} 
+

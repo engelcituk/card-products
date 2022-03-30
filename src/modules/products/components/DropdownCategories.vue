@@ -31,7 +31,8 @@
         <b-badge variant="primary" class="ml-1 mr-2" v-if="selectedCategory">            
             <span> {{ selectedCategory ? selectedCategory.text :'' }}</span>
         </b-badge>
-        <b-icon-cart-check-fill style="color:#333366;"></b-icon-cart-check-fill>
+                
+        <button class="btn btn-success" @click="openCart" v-if="itemsSelected.length > 0"><b-icon-cart-check-fill style="color:#333366;"></b-icon-cart-check-fill> Products selected {{ itemsSelected.length }}</button>
     </div>
 </template>
 
@@ -42,7 +43,7 @@ import { toJson } from '@/helpers/helpers'
 export default {
    
     computed:{    
-    ...mapState('products',['categories','selectedCategory', 'isloadingProducts']),    
+    ...mapState('products',['categories','selectedCategory', 'isloadingProducts','itemsSelected']),    
     ...mapGetters('products',['filteredProducts']),     
   },
     methods:{
@@ -71,7 +72,9 @@ export default {
             this.setSelectedCategory( categoria )
             this.setProducts( products )
             this.setLoadingProducts(false)
-
+        },
+        openCart(){
+            console.log('abrir cart con items')
         }
     }
 }
@@ -83,4 +86,10 @@ export default {
     background-color: #333366!important;
     border-color: #333366!important;
 }
+.options-header {
+    display: flex;
+    justify-content: center;
+    /* gap: 1rem; */
+    /* padding-block-start: 1rem; */
+} 
 </style>
