@@ -35,7 +35,7 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import ProductDetail from '@/modules/products/components/ProductDetail'
-import { toJson, generarJWT } from '@/helpers/helpers'
+import { toJson, generarJWT, decodeJwt } from '@/helpers/helpers'
 export default {
   name: 'Product',  
   props:{
@@ -75,6 +75,7 @@ export default {
       const jwt = generarJWT({ auth, items:[payload] })
       const url = `?payload=${jwt}`
       console.log( url )
+      console.log( decodeJwt(jwt) )
     },
     selectItem(){      
       const item = {... toJson( this.product ) }

@@ -453,11 +453,20 @@ const formatEvent = event => {
     return event
 }
 
-const generarJWT = (string) => {
-    return jwt.sign({ string }, process.env.VUE_APP_JWT_SECRET, {
+const generarJWT = (payload) => {
+    return jwt.sign({ payload }, process.env.VUE_APP_JWT_SECRET, {
         expiresIn: '30d'
     })
 } 
+
+const decodeJwt = ( stringJwt ) => {
+    try {
+        const decoded = jwt.verify(stringJwt, process.env.VUE_APP_JWT_SECRET )
+        return {ok: true, ...decoded }
+    } catch (error) {
+        return { ok: false, msg: `${error.name}: ${error.message} ` }
+    }
+}
 
 export {    
     handlerErrors,
@@ -481,5 +490,6 @@ export {
     formatItems,
     setParamsGetProducts,
     formatItemProduct,  
-    generarJWT
+    generarJWT,
+    decodeJwt
 }
