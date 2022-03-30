@@ -25,7 +25,7 @@ export function addToItemsSelected(state, payload){
         state.itemsSelected = [...state.itemsSelected, payload]
     }
     if(!isSelected){
-        state.itemsSelected = state.itemsSelected.filter( item => item.product !== product && item.detail !== detail && item.type !== type )       
+        state.itemsSelected = state.itemsSelected.filter( item => item.product !== product || item.detail !== detail || item.type !== type )       
     }    
 } 
 
