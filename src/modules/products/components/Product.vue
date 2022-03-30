@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import { toJson } from '@/helpers/helpers'
 export default {
   name: 'Product',  
@@ -50,6 +50,8 @@ export default {
     }
   },
   computed:{
+    ...mapGetters('products',['filteredProducts']),  
+    ...mapState('products',['isloadingProducts','categories']),  
     isSelectedItem(){
       return this.product.isSelected ? 'color:#ffab00;':'color:white;'
     }
@@ -74,8 +76,9 @@ export default {
         product: item.id,
         detail: item.detailSelected.id,
         type: `${item.modelType}s`,
-        isSelected: this.product.isSelected
-      }                      
+        isSelected: this.product.isSelected,
+        key: item.uuid
+      }          
       this.addToItemsSelected(payload)     
     }
   }

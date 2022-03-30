@@ -62,7 +62,6 @@ export default {
   computed:{
     ...mapGetters('products',['filteredProducts']),  
     ...mapState('products',['isloadingProducts','categories']),  
-
   },
   methods:{
     ...mapActions('auth',['loginWeb']),  

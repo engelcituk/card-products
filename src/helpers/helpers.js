@@ -253,7 +253,7 @@ const formatListProducts = ( products, valueCategory ) => {
         product.modelType = 'product'
         product.valueFromCategory = valueCategory
         product.isSelected = false
-        product.uuid = stringAleatorio()
+        product.uuid = `product-${product.id}`
         product.categoryName = product.category.name || ''
         product.detailSelected = product.detail[0] ? product.detail[0] : null
         delete product.gallery
@@ -278,7 +278,7 @@ const formatListPackage = ( packages, valueCategory) => {
         product.modelType = 'package'    
         product.valueFromCategory = valueCategory
         product.isSelected = false
-        product.uuid = stringAleatorio()
+        product.uuid = `package-${product.id}`
         product.detailSelected = {
             descmax: 0,
             detaildisplay: product.name,
@@ -310,7 +310,7 @@ const formatListEvents = ( events, valueCategory ) => {
         product.categoryName = 'Events'  
         product.valueFromCategory = valueCategory
         product.isSelected = false
-        product.uuid = stringAleatorio()                               
+        product.uuid = `event-${product.id}`                               
         const detalleIngles = product.eventdetail[1]
         product.detailSelected = {
             descmax: detalleIngles ? parseInt(detalleIngles.descmax) : 0,

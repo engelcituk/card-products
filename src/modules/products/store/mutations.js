@@ -20,12 +20,15 @@ export function setSelectedCategory(state, category ){
 } 
 
 export function addToItemsSelected(state, payload){
-    const { isSelected, product, detail, type } = payload
-    if(isSelected){   
-        state.itemsSelected = [...state.itemsSelected, payload]
+    const { isSelected, key } = payload
+    if(isSelected){  
+        const itemExist =  state.itemsSelected.find( item => item.key === key )        
+        if( !itemExist ){
+            state.itemsSelected = [...state.itemsSelected, payload]
+        }
     }
     if(!isSelected){
-        state.itemsSelected = state.itemsSelected.filter( item => item.product !== product || item.detail !== detail || item.type !== type )       
+        state.itemsSelected = state.itemsSelected.filter( item => item.key !== key )       
     }    
 } 
 
