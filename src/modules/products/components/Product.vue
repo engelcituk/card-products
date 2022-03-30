@@ -71,8 +71,8 @@ export default {
         detail: item.detailSelected.id,
         type: `${item.modelType}s`  
       }
-      const auth =  this.createHeadersPayload()      
-      const jwt = generarJWT({ auth, items:[payload] })
+      const token = this.createHeadersPayload()      
+      const jwt = generarJWT({ token, items:[payload] })
       const url = `?payload=${jwt}`
       console.log( url )
       console.log( decodeJwt(jwt) )
@@ -91,9 +91,7 @@ export default {
       this.addToItemsSelected(payload)     
     },
     createHeadersPayload(){
-      return {
-        token: this.queryParams.token
-      }            
+      return this.queryParams.token                 
     },
     showModal() {
       this.$root.$emit('bv::show::modal', this.product.uuid, '#btnShow')

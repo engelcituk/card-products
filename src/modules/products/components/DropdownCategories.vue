@@ -84,16 +84,14 @@ export default {
                 }
                 items.push(product)
             })
-            const auth =  this.createHeadersPayload()
-            const data = { auth, items } 
+            const token =  this.createHeadersPayload()
+            const data = { token, items } 
             const jwt = generarJWT(data)
             const url = `?payload=${jwt}`
             console.log( url )
         },
         createHeadersPayload(){
-            return {
-                token: this.queryParams.token
-            }            
+            return this.queryParams.token         
         }
     }
 }
