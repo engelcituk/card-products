@@ -34,7 +34,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import { toJson } from '@/helpers/helpers'
+import { toJson, generarJWT } from '@/helpers/helpers'
 export default {
   name: 'Product',  
   props:{
@@ -52,6 +52,8 @@ export default {
   computed:{
     ...mapGetters('products',['filteredProducts']),  
     ...mapState('products',['isloadingProducts','categories']),  
+    ...mapState('auth',['queryParams']),  
+
     isSelectedItem(){
       return this.product.isSelected ? 'color:#ffab00;':'color:white;'
     }
@@ -65,7 +67,9 @@ export default {
         detail: item.detailSelected.id,
         type: `${item.modelType}s`  
       }
-      const url = `?payload=${JSON.stringify(payload)}`
+      const auth =  this.createHeadersPayload()      
+      const jwt = generarJWT({ auth, items:[payload] })
+      const url = `?payload=${jwt}`
       console.log( url )
     },
     selectItem(){      
@@ -80,6 +84,11 @@ export default {
         key: item.uuid
       }          
       this.addToItemsSelected(payload)     
+    },
+    createHeadersPayload(){
+      return {
+        token: this.queryParams.token
+      }            
     }
   }
 }

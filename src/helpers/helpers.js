@@ -1,8 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios' 
-export const baseUrl = process.env.VUE_APP_BASE_URL_API
+import jwt from 'jsonwebtoken'
 
 const handlerErrors = (errorMessage, errorResponse) => {
     let stringError = ''
@@ -456,13 +453,11 @@ const formatEvent = event => {
     return event
 }
 
-const overWriteAxiosHeaders = (queryParams) =>{
-    //sobreescribo los datos en axios, una vez obtenido un token
-    axios.defaults.headers.common['Authorization'] = 'Token '+ queryParams?.token
-    axios.defaults.baseURL = baseUrl
-    Vue.use(VueAxios, axios)// end
-}
-
+const generarJWT = (string) => {
+    return jwt.sign({ string }, process.env.VUE_APP_JWT_SECRET, {
+        expiresIn: '30d'
+    })
+} 
 
 export {    
     handlerErrors,
@@ -485,6 +480,6 @@ export {
     formatListEvents,
     formatItems,
     setParamsGetProducts,
-    formatItemProduct,
-    overWriteAxiosHeaders,   
+    formatItemProduct,  
+    generarJWT
 }

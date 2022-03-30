@@ -38,11 +38,12 @@
 
 <script>
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
-import { toJson } from '@/helpers/helpers'
+import { toJson, generarJWT } from '@/helpers/helpers'
 
 export default {
    
     computed:{    
+    ...mapState('auth',['queryParams']),  
     ...mapState('products',['categories','selectedCategory', 'isloadingProducts','itemsSelected']),    
     ...mapGetters('products',['filteredProducts']),     
   },
@@ -74,7 +75,25 @@ export default {
             this.setLoadingProducts(false)
         },
         openCart(){
-            console.log('abrir cart con items')
+            let items = []            
+            this.itemsSelected.forEach(item => {
+                const product = {
+                    product: item.product,
+                    detail: item.detail,
+                    type: item.type
+                }
+                items.push(product)
+            })
+            const auth =  this.createHeadersPayload()
+            const data = { auth, items } 
+            const jwt = generarJWT(data)
+            const url = `?payload=${jwt}`
+            console.log( url )
+        },
+        createHeadersPayload(){
+            return {
+                token: this.queryParams.token
+            }            
         }
     }
 }
