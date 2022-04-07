@@ -1,3 +1,3 @@
 
-require('./boostrap-vue')
+// require('./boostrap-vue')
 require('./vue-axios')
