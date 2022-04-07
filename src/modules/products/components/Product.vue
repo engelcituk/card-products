@@ -13,7 +13,8 @@
         <h4><span>{{ product.name }}</span></h4>
         <div class="short-description" >
           <div v-html="product.description"></div>              
-      </div>                          
+        </div>                          
+        <div  class="show-more" @click="showModal = true">Show more..</div>            
       </div>
       <div class="btn-options">
         <!-- <button class="custom-btn btn-option" @click="showModal">A</button>         -->
@@ -21,6 +22,7 @@
         <!-- <button class="custom-btn btn-option" @click="selectProduct" ><font-awesome-icon icon="info-circle" /></button> -->
         <button class="custom-btn btn-option" @click="selectItem"><font-awesome-icon icon="cart-plus" /></button> <!-- :style="isSelectedItem" -->
       </div>
+      <ProductDetail :product="product" v-show="showModal" @close-modal="showModal = false" />
     </div>
 </template>
 
@@ -28,6 +30,9 @@
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import ProductDetail from '@/modules/products/components/ProductDetail'
 import { toJson, generarJWT, decodeJwt } from '@/helpers/helpers'
+
+
+
 export default {
   name: 'Product',  
   props:{
@@ -42,9 +47,12 @@ export default {
   data(){
     return {
       imgUrl: process.env.VUE_APP_IMG_SRC_API,
+      showModal: false,
+
     //   imdDefault: require('@/assets/images/default.jpg')      
     }
   },
+ 
   computed:{
     ...mapGetters('products',['filteredProducts']),  
     ...mapState('products',['isloadingProducts','categories']),  
@@ -84,9 +92,9 @@ export default {
     },
     createHeadersPayload(){
       return this.queryParams.token                 
-    },
-    showModal() {
-      this.$root.$emit('bv::show::modal', this.product.uuid, '#btnShow')
+    },    
+    showDetail(){
+      console.log('ver')
     },
   }
 }
@@ -115,14 +123,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
-    /* padding: 50px; */
+    height: 180px;    
     background: #f0f0f0;
 }
 
 .product-tumb img {
-    width: 100%;
-  height: 200px;
+  width: 100%;
+  height: 180px;
 }
 
 .product-details {
@@ -190,12 +197,9 @@ export default {
 .btn-options{
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  /* gap: 1rem; */
+  align-items: center;  
   padding-inline-start: .5rem;
   padding-inline-end: .5rem;
-
-
   padding-block-end: 1rem;
 }
 
@@ -211,7 +215,12 @@ export default {
   position: relative;  
 }
 
-/* 13 */
+.show-more{
+    font-weight: 500;
+    cursor: pointer;
+    font-size: .9rem;
+    /* text-align: left; */
+}
 .btn-option {
   background-color: #333366 ;
   background-image: linear-gradient(315deg, #333366  0%, #333366 74%);
@@ -247,4 +256,5 @@ export default {
   top: 2px;
 }
 
+/* Estilos para modal */
 </style>
