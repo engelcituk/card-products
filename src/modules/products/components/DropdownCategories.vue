@@ -37,7 +37,7 @@
     <div class="main-header">
           <div class="dropdown">
             <button class="dropdown__btn">
-              Categorías
+                <font-awesome-icon icon="list-dots" />  Categorías
             </button>
             <div class="dropdown__list">
               <a href="#" class="dropdown__item">Jazz </a>
@@ -51,7 +51,7 @@
           </div>
           <div>
             <button class="dropdown__btn">
-              <font-awesome-icon icon="cart-plus" />
+               Products selected: {{ itemsSelected.length }} <font-awesome-icon icon="cart-plus" />
             </button>
           </div>
         </div>
@@ -117,17 +117,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-
-.btn-primary {
-    color: #fff;
-    background-color: #333366!important;
-    border-color: #333366!important;
-}
-.options-header {
-    display: flex;
-    justify-content: center;
-    /* gap: 1rem; */
-    /* padding-block-start: 1rem; */
-} 
-</style>

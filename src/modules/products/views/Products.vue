@@ -1,40 +1,23 @@
-<template>
-  
-    <!-- <div class="mt-5" v-if="!isloadingProducts">
-      <b-row>
-        <b-col md="6">
-          <DropdownCategories />
-        </b-col>
-      </b-row>
-      <b-row v-if="filteredProducts.length > 0">
-        <b-col md="3" v-for="product in filteredProducts" :key="product.id" >
-          <Product :product="product" md="4"/>
-        </b-col>
-      </b-row>               
-      <b-row v-if="filteredProducts.length = 0">
-        <b-col md="12"  >
-          Sín productos
-        </b-col>
-      </b-row> 
-    </div>
-    <div class="text-center mt-5" v-if="isloadingProducts">
-      <b-spinner label="Loading..." variant="success" /><br />
-      <strong>Cargando productos</strong>
-    </div> -->
-      <main class="main-container">
+<template>      
+    <div>
+      <main class="main-container" v-if="!isloadingProducts">
         <DropdownCategories />
         <div class="cards-list">          
           	<div class="product-card" v-for="product in filteredProducts" :key="product.id">
               <Product :product="product"/>
           </div>                    
         </div>
-      </main>          
+      </main> 
+      <Loader v-else/>         
+    </div>
 </template>
 
 <script>
 import { mapState, mapActions,  mapGetters, mapMutations } from 'vuex'
 import Product from '@/modules/products/components/Product'
 import DropdownCategories from '@/modules/products/components/DropdownCategories'
+import Loader from '@/modules/products/components/Loader'
+
 import { toJson } from '@/helpers/helpers'
 
 import Vue from 'vue'
@@ -51,6 +34,7 @@ export default {
     }
   },
   components: {
+    Loader,
     Product,
     DropdownCategories
   },
@@ -115,10 +99,10 @@ export default {
 
 .main-container{  
   flex-direction: column;
-  margin-block-start: 3rem;   
-  margin-block-end: 3rem;  
-  margin-inline-start: 3rem;   
-  margin-inline-end: 3rem;  
+  margin-block-start: 2rem;   
+  margin-block-end: 2rem;  
+  margin-inline-start: 2rem;   
+  margin-inline-end: 2rem;  
   font-family: 'Roboto', sans-serif;
 }
 .main-header {  
@@ -134,7 +118,7 @@ export default {
   gap: 1rem;
 }
 .product-card {
-    width: 380px;
+    width: 300px;
     position: relative;
     box-shadow: 0 2px 7px #dfdfdf;
     /* margin: 50px auto; */
@@ -168,15 +152,15 @@ export default {
  .dropdown__btn {
 	 
 	 padding: .8rem;
-	 /* border: none; */
+	 border: none;
 	 font-size: inherit;
-	 color: #2b2828;
+	 color: #f8f8f8;
 	 font-family: inherit;
 	 cursor: pointer;
-	 background-color: #f6f6f6;
+	 background-color: #333366;
 	 border-radius: 5px;
 	 /* z-index: 2; */
-   border: 2px solid#333366;
+   /* border: 1px solid#333366; */
 }
  .dropdown__list {
 	 position: absolute;
