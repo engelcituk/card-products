@@ -22,15 +22,12 @@
       <strong>Cargando productos</strong>
     </div> -->
       <main class="main-container">
-        <div class="cards-list">
-          <div class="card " v-for="product in filteredProducts" :key="product.id">
-            <div class="card_image"> <img src="https://picsum.photos/200/300" /> </div>
-            <div class="card_title title-white">
-              <p>Card Title</p>
-            </div>
-          </div>
+        <div class="cards-list">          
+          	<div class="product-card" v-for="product in filteredProducts" :key="product.id">
+              <Product :product="product"/>
+          </div>                    
         </div>
-      </main>            
+      </main>          
 </template>
 
 <script>
@@ -55,6 +52,12 @@ export default {
   components: {
     Product,
     DropdownCategories
+  },
+  data(){
+    return {
+      imgUrl: process.env.VUE_APP_IMG_SRC_API,
+    //   imdDefault: require('@/assets/images/default.jpg')      
+    }
   },
   async mounted(){    
     axios.defaults.headers.common['Authorization'] = 'Token '+ this.tokenApp
@@ -102,94 +105,47 @@ export default {
       }
     }
   }
+  // https://codepen.io/mdshifut/pen/VrwBJq
 }
 </script>
 
-<style scoped>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
 .main-container{
-	display: flex;
-  margin: auto;  
-  margin-block-start: 3rem; 
-  width: 1024px;  
+  /* display: flex; */
+  flex-direction: column;
+   margin-block-start: 3rem;   
+  margin-block-end: 3rem;  
+  margin-inline-start: 3rem;   
+  margin-inline-end: 3rem;  
+  font-family: 'Roboto', sans-serif;
 }
-
-.cards-list {
-  z-index: 0;
-  width: 100%;
+.cards-list {  
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  flex-direction: column; 
+  gap: 1rem;
+}
+.product-card {
+    width: 380px;
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    /* margin: 50px auto; */
+    background: #fafafa;
 }
 
-.card {
-  margin: 10px auto;
-  width: 300px;
-  height: 300px;
-  border-radius: 40px;
-box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
-  cursor: pointer;
-  transition: 0.4s;
-}
+@media screen and (min-width: 768px) {
+  .main-container  {
+    /* display: flex; */
+    margin: auto;  
+    margin-block-start: 3rem;   
+    margin-block-end: 3rem;   
+    width: 1024px;  
 
-.card .card_image {
-  width: inherit;
-  height: inherit;
-  border-radius: 40px;
-}
-
-.card .card_image img {
-  width: inherit;
-  height: inherit;
-  border-radius: 40px;
-  object-fit: cover;
-}
-
-.card .card_title {
-  text-align: center;
-  border-radius: 0px 0px 40px 40px;
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 30px;
-  margin-top: -80px;
-  height: 40px;
-}
-
-.card:hover {
-  transform: scale(0.9, 0.9);
-  box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25), 
-    -5px -5px 30px 15px rgba(0,0,0,0.22);
-}
-
-.title-white {
-  color: white;
-}
-
-.title-black {
-  color: black;
-}
-
-@media all and (max-width: 500px) {
-  .card-list {
-    /* On small screens, we are no longer using row direction but column */
-    flex-direction: column;
+  }
+  .cards-list {
+    flex-direction: row;
+    gap: 1rem;
   }
 }
-
-
-/*
-.card {
-  margin: 30px auto;
-  width: 300px;
-  height: 300px;
-  border-radius: 40px;
-  background-image: url('https://i.redd.it/b3esnz5ra34y.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-repeat: no-repeat;
-box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
-  transition: 0.4s;
-}
-*/
-
 </style>

@@ -1,10 +1,12 @@
 <template>
-  <b-container>
+  <!-- <b-container>
     <Products :tokenApp="tokenApp" v-if="tokenApp!=''"/>  
     <b-alert variant="danger" v-else class="mt-5">
       Productos no disponibles
     </b-alert>
-  </b-container>
+  </b-container> -->
+    <Products :tokenApp="tokenApp" v-if="tokenApp!=''"/>  
+
 </template>
 
 <script>
