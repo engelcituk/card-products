@@ -34,7 +34,7 @@
     right: 0;
     display: flex;
     justify-content: center;
-    background-color: #332d2dda;
+    background-color: #000000da;
 }
 
 .modal-body {

@@ -7,8 +7,6 @@ import vueCustomElement from 'vue-custom-element'
 // (optional) 'Custom elements polyfill'
 import 'document-register-element/build/document-register-element'
 
-import './index.css'
-
 require('./plugins')
 Vue.config.productionTip = false
 Vue.use(vueCustomElement)

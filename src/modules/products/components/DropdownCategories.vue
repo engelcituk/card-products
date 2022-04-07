@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <!-- <div>
         <b-dropdown
             id="dropdown-grouped"            
             variant="primary"
@@ -33,7 +33,28 @@
         </b-badge>
                 
         <button class="btn btn-success" @click="openCart" v-if="itemsSelected.length > 0"><b-icon-cart-check-fill style="color:#333366;"></b-icon-cart-check-fill> Products selected {{ itemsSelected.length }}</button>
-    </div>
+    </div> -->
+    <div class="main-header">
+          <div class="dropdown">
+            <button class="dropdown__btn">
+              Categorías
+            </button>
+            <div class="dropdown__list">
+              <a href="#" class="dropdown__item">Jazz </a>
+              <a href="#" class="dropdown__item">Rock'n'Roll </a>
+              <a href="#" class="dropdown__item">World Music </a>
+              <a href="#" class="dropdown__item">R'n'B </a>
+            </div>
+          </div>
+          <div>
+            <span class="badge-header">The fives hotels</span>
+          </div>
+          <div>
+            <button class="dropdown__btn">
+              <font-awesome-icon icon="cart-plus" />
+            </button>
+          </div>
+        </div>
 </template>
 
 <script>

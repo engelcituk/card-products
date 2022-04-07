@@ -10,7 +10,7 @@
         <img :src="imgUrl + product.coverImage" alt="">
       </div>
       <div class="product-details">        
-        <h4><span>{{ product.name }}</span></h4>
+        <h4>{{ product.name }}</h4>
         <div class="short-description" >
           <div v-html="product.description"></div>              
         </div>                          
@@ -20,7 +20,7 @@
         <!-- <button class="custom-btn btn-option" @click="showModal">A</button>         -->
         <div class="product-price">${{product.detailSelected.saleprice}}</div>
         <!-- <button class="custom-btn btn-option" @click="selectProduct" ><font-awesome-icon icon="info-circle" /></button> -->
-        <button class="custom-btn btn-option" @click="selectItem"><font-awesome-icon icon="cart-plus" /></button> <!-- :style="isSelectedItem" -->
+        <button class="custom-btn btn-option" @click="selectItem"><font-awesome-icon icon="heart" /></button> <!-- :style="isSelectedItem" -->
       </div>
       <ProductDetail :product="product" v-show="showModal" @close-modal="showModal = false" />
     </div>
@@ -92,10 +92,7 @@ export default {
     },
     createHeadersPayload(){
       return this.queryParams.token                 
-    },    
-    showDetail(){
-      console.log('ver')
-    },
+    },        
   }
 }
 </script>
@@ -133,46 +130,26 @@ export default {
 }
 
 .product-details {
-  padding: 1rem;    
-  border-bottom: 2px solid #eee7e7;
-  margin-block-end: .5rem;
-}
-.product-details h4 span {
-    font-weight: 500;
-    display: block;
-    margin-bottom: 5px; 
-    text-transform: uppercase;
-    color: #363636;
-    text-decoration: none;
-    transition: 0.3s;
-    /* text-align: center; */
+  /* padding: ;  */
+  padding-block-end: 1rem;   
+  padding-inline-start: 1rem;   
+  padding-inline-end: .5rem;   
+  border-bottom: 2px solid #eee7e7;  
 }
 
-.product-details h4 span:hover {
+.product-details h4 {
+  margin-block-start: 1rem;
+  margin-block-end: -.5rem;
+}
+.product-details h4:hover {
   color: #fbb72c;
-}
-
-.product-links span:hover {
-  color: #fbb72c;
-}
-
-.product-links {
-  text-align: right;
-}
-
-.product-links a {
-    display: inline-block;
-    margin-left: 5px;
-    color: #e1e1e1;
-    transition: 0.3s;
-    font-size: 17px;
 }
 
 .product-details p {
     font-size: 15px;
     line-height: 22px;
     margin-bottom: 5px;
-    padding: 1rem;
+    /* padding: 1rem; */
     color: #999;
 }
 
@@ -200,13 +177,14 @@ export default {
   align-items: center;  
   padding-inline-start: .5rem;
   padding-inline-end: .5rem;
+  padding-block-start: 1rem;
   padding-block-end: 1rem;
 }
 
 .custom-btn {  
   color: #fff;
   border-radius: 5px;
-  padding: 5px 15px;
+  padding: 10px 10px;
   font-family: 'Lato', sans-serif;
   font-weight: 500;
   background: transparent;

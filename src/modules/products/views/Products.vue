@@ -22,6 +22,7 @@
       <strong>Cargando productos</strong>
     </div> -->
       <main class="main-container">
+        <DropdownCategories />
         <div class="cards-list">          
           	<div class="product-card" v-for="product in filteredProducts" :key="product.id">
               <Product :product="product"/>
@@ -112,14 +113,20 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 
-.main-container{
-  /* display: flex; */
+.main-container{  
   flex-direction: column;
-   margin-block-start: 3rem;   
+  margin-block-start: 3rem;   
   margin-block-end: 3rem;  
   margin-inline-start: 3rem;   
   margin-inline-end: 3rem;  
   font-family: 'Roboto', sans-serif;
+}
+.main-header {  
+  display: flex;
+  flex-direction: column; 
+  gap: 1rem;
+  margin-block-end: 1rem;  
+  align-items: center;
 }
 .cards-list {  
   display: flex;
@@ -143,9 +150,92 @@ export default {
     width: 1024px;  
 
   }
+  .main-header {
+    flex-direction: row;
+    gap: 1rem;
+    margin-block-start: 3rem;   
+    justify-content: space-between;
+  }
   .cards-list {
     flex-direction: row;
     gap: 1rem;
   }
 }
+
+.dropdown {
+	 position: relative;
+}
+ .dropdown__btn {
+	 
+	 padding: .8rem;
+	 /* border: none; */
+	 font-size: inherit;
+	 color: #2b2828;
+	 font-family: inherit;
+	 cursor: pointer;
+	 background-color: #f6f6f6;
+	 border-radius: 5px;
+	 /* z-index: 2; */
+   border: 2px solid#333366;
+}
+ .dropdown__list {
+	 position: absolute;
+	 /* left: 1.5rem; */
+	 top: 3.5rem;
+	 width: max-content;
+	 display: flex;
+	 flex-direction: column;
+	 padding-top: 10px;
+	 border-radius: 3px;
+	 overflow: hidden;
+	 transform: translateY(-20%);
+	 visibility: hidden;
+	 opacity: 0;
+	 transition: all 0.25s;
+	 z-index: 1;
+	 background-color: #dfdfdf;
+
+}
+ .dropdown__item {
+	 display: flex;
+	 align-items: center;
+	 justify-content: flex-start;
+	 padding: 1rem 1.5rem;
+	 font-size: 1rem;
+	 text-decoration: none;
+	 color: #383838;
+	 /* background-color: rgba(112, 102, 204, 0.1); */
+	 transition: background-color 0.2s;
+}
+ .dropdown__item:first-child {
+	 border-radius: 3px 3px 0 0;
+}
+ .dropdown__item:hover {
+	 background-color: rgba(44, 43, 54, 0.3);
+}
+
+ .dropdown:hover .dropdown__btn {
+	 color: #000000;
+}
+ .dropdown:hover .dropdown__list {
+	 transform: translateY(0);
+	 visibility: visible;
+	 opacity: 1;
+}
+
+/* badge */
+.badge-header{
+	 box-sizing: border-box;
+	 display: inline-block;
+	 background-color: #2ecc71;
+	 color: #fff;
+	 border-radius: .5rem;
+	 text-align: center;
+	 font-weight: 400;
+   font-size: 1rem;
+	 padding: 0.2rem ;
+}
+ 
+ 
+ 
 </style>
