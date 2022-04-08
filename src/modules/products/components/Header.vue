@@ -6,11 +6,11 @@
         </button>
 
         <div class="dropdown__list">
-            <span>Servicios hoteleros</span>
+            <span class="group-option">Servicios hoteleros</span>
             <a href="#" class="dropdown__item" v-for="cat in categories.hotels" :key="cat.value" @click="getProducts(cat.value)">{{cat.text}} </a>                
-            <span>Categorías</span>
+            <span class="group-option">Categorías</span>
             <a href="#" class="dropdown__item" v-for="cat in categories.defaults" :key="cat.value" @click="getProducts(cat.value)">{{cat.text}} </a>                
-            <span>Servicios</span>
+            <span class="group-option">Servicios</span>
             <a href="#" class="dropdown__item" v-for="cat in categories.services" :key="cat.value" @click="getProducts(cat.value)">{{cat.text}} </a>                
         </div>
         </div>
@@ -137,6 +137,11 @@ export default {
 	 z-index: 1;
 	 background-color: #dfdfdf;
 
+}
+.group-option {
+    padding-inline-start: 1rem;
+    /* text-align: center; */
+    font-weight: 500;
 }
  .dropdown__item {
 	 display: flex;
