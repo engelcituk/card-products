@@ -20,7 +20,7 @@
         <!-- <button class="custom-btn btn-option" @click="showModal">A</button>         -->
         <div class="product-price">${{product.detailSelected.saleprice}}</div>
         <!-- <button class="custom-btn btn-option" @click="selectProduct" ><font-awesome-icon icon="info-circle" /></button> -->
-        <button class="custom-btn btn-option" @click="selectItem"><font-awesome-icon icon="heart" /></button> <!-- :style="isSelectedItem" -->
+        <button class="custom-btn btn-option" @click="selectItem"><font-awesome-icon icon="heart" :class="product.isSelected ? 'color-icon-selecte-cart': 'color-icon-base-cart' "/></button>        
       </div>
       <ProductDetail :product="product" v-show="showModal" @close-modal="showModal = false" />
     </div>
@@ -59,7 +59,7 @@ export default {
     ...mapState('auth',['queryParams']),  
 
     isSelectedItem(){
-      return this.product.isSelected ? 'color:#ffab00;':'color:white;'
+      return this.product.isSelected ? 'color:#ffab00;':'color:#e0e0e0;'
     }
   },
   methods:{
@@ -129,8 +129,7 @@ export default {
   height: 180px;
 }
 
-.product-details {
-  /* padding: ;  */
+.product-details {  
   padding-block-end: 1rem;   
   padding-inline-start: 1rem;   
   padding-inline-end: .5rem;   
@@ -139,24 +138,23 @@ export default {
 
 .product-details h4 {
   margin-block-start: 1rem;
-  margin-block-end: -.5rem;
+  margin-block-end: .2rem;
 }
 .product-details h4:hover {
   color: #fbb72c;
 }
 
 .product-details p {
-    font-size: 15px;
-    line-height: 22px;
-    margin-bottom: 5px;
-    /* padding: 1rem; */
-    color: #999;
+  font-size: 15px;
+  line-height: 22px;
+  margin-bottom: 5px;  
+  color: #999;
 }
 
 .product-price {
-    font-size: 1rem;    
-    color: #363636;
-    font-weight: 600;
+  font-size: 1rem;    
+  color: #363636;
+  font-weight: 600;
 }
 
 .product-price:hover {    
@@ -233,6 +231,10 @@ export default {
 .btn-option:active {
   top: 2px;
 }
-
-/* Estilos para modal */
+.color-icon-base-cart{
+  color:#e0e0e0;
+}
+.color-icon-selecte-cart{
+  color:#ffab00;
+}
 </style>

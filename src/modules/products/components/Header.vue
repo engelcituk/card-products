@@ -1,60 +1,28 @@
 <template>
-    <!-- <div>
-        <b-dropdown
-            id="dropdown-grouped"            
-            variant="primary"
-            right
-            :text="selectedCategory ? selectedCategory.section :'Tipos de categorías'"
-        >
-            <b-dropdown-group
-                header="Servicios hoteleros"
-            >
-                <b-dropdown-item v-for="cat in categories.hotels" :key="cat.value" @click="getProducts(cat.value)">{{cat.text}}</b-dropdown-item>        
-            </b-dropdown-group>
-            
-            <b-dropdown-divider />
-
-            <b-dropdown-group
-                header="Categorías"
-            >
-                <b-dropdown-item v-for="cat in categories.defaults" :key="cat.value" @click="getProducts(cat.value)" >{{cat.text}}</b-dropdown-item>        
-            </b-dropdown-group>
-
-            <b-dropdown-divider />
-
-            <b-dropdown-group
-                header="Servicios"
-            >
-                <b-dropdown-item v-for="cat in categories.services" :key="cat.value" @click="getProducts(cat.value)" >{{cat.text}}</b-dropdown-item>        
-            </b-dropdown-group>
-        </b-dropdown>
-        <b-badge variant="primary" class="ml-1 mr-2" v-if="selectedCategory">            
-            <span> {{ selectedCategory ? selectedCategory.text :'' }}</span>
-        </b-badge>
-                
-        <button class="btn btn-success" @click="openCart" v-if="itemsSelected.length > 0"><b-icon-cart-check-fill style="color:#333366;"></b-icon-cart-check-fill> Products selected {{ itemsSelected.length }}</button>
-    </div> -->
     <div class="main-header">
-          <div class="dropdown">
-            <button class="dropdown__btn">
-                <font-awesome-icon icon="list-dots" />  Categorías
-            </button>
-            <div class="dropdown__list">
-              <a href="#" class="dropdown__item">Jazz </a>
-              <a href="#" class="dropdown__item">Rock'n'Roll </a>
-              <a href="#" class="dropdown__item">World Music </a>
-              <a href="#" class="dropdown__item">R'n'B </a>
-            </div>
-          </div>
-          <div>
-            <span class="badge-header">The fives hotels</span>
-          </div>
-          <div>
-            <button class="dropdown__btn">
-               Products selected: {{ itemsSelected.length }} <font-awesome-icon icon="cart-plus" />
-            </button>
-          </div>
+        <div class="dropdown">
+        <button class="dropdown__btn">
+            <font-awesome-icon icon="list-dots" /> {{selectedCategory ? selectedCategory.section : 'Tipos de categorías' }}
+        </button>
+
+        <div class="dropdown__list">
+            <span>Servicios hoteleros</span>
+            <a href="#" class="dropdown__item" v-for="cat in categories.hotels" :key="cat.value" @click="getProducts(cat.value)">{{cat.text}} </a>                
+            <span>Categorías</span>
+            <a href="#" class="dropdown__item" v-for="cat in categories.defaults" :key="cat.value" @click="getProducts(cat.value)">{{cat.text}} </a>                
+            <span>Servicios</span>
+            <a href="#" class="dropdown__item" v-for="cat in categories.services" :key="cat.value" @click="getProducts(cat.value)">{{cat.text}} </a>                
         </div>
+        </div>
+        <div>
+        <span class="badge-header">{{ selectedCategory ? selectedCategory.text :'' }}</span>
+        </div>
+        <div>
+        <button class="btn-cart " @click="openCart" v-if="itemsSelected.length > 0">
+            Products selected: {{ itemsSelected.length }} <font-awesome-icon icon="cart-plus" />
+        </button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -142,6 +110,15 @@ export default {
 	 border-radius: 5px;
 	 /* z-index: 2; */
    /* border: 1px solid#333366; */
+}
+.btn-cart {
+    padding: .8rem;
+	 border: none;
+	 font-size: inherit;
+	 color: #f8f8f8;
+	 font-family: inherit;
+	 cursor: pointer;	 
+	background-color: #00bfa5;
 }
  .dropdown__list {
 	 position: absolute;
